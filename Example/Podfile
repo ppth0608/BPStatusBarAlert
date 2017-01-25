@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BPStatusBarAlert_Example' do
+  pod 'BPStatusBarAlert', :path => '../'
+
+  target 'BPStatusBarAlert_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

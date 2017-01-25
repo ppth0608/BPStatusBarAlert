@@ -1,0 +1,6 @@
+framework module Pods_BPStatusBarAlert_Example {
+  umbrella header "Pods-BPStatusBarAlert_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

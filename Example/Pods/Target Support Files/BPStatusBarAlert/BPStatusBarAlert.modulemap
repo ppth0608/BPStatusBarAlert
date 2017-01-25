@@ -1,0 +1,6 @@
+framework module BPStatusBarAlert {
+  umbrella header "BPStatusBarAlert-umbrella.h"
+
+  export *
+  module * { export * }
+}
