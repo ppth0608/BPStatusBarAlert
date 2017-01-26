@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonTapped(_ sender: Any) {
-        BPStatusBarAlert.shared.show(message: "Complete sharing this article!", messageColor: UIColor.brown, bgColor: UIColor.green)
+        BPStatusBarAlert.shared.show(message: "Complete sharing this article!")
     }
 }
 

@@ -26,7 +26,6 @@
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="GeO-0K-vTw"/>
-                                    <segue destination="QGi-l9-Wwa" kind="show" id="vZo-Wa-mC2"/>
                                 </connections>
                             </button>
                         </subviews>

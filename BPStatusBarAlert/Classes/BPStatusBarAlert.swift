@@ -24,6 +24,7 @@ public class BPStatusBarAlert: UIButton {
     var duration = 0.3
     var delay = 2.0
     var position: Position
+    var isShowing: Bool = false
     
     var messageLable: UILabel = UILabel()
     var messageColor: UIColor = UIColor.white
@@ -33,11 +34,6 @@ public class BPStatusBarAlert: UIButton {
     fileprivate let screenWidth = UIScreen.main.bounds.width
     fileprivate let screenHeight = UIScreen.main.bounds.height
     
-    var isShowing: Bool = false {
-        didSet {
-            containerWindow?.isHidden = !isShowing
-        }
-    }
     
     public init(position: AlertPosition = .statusBar) {
         self.position = position
@@ -58,7 +54,7 @@ extension BPStatusBarAlert {
         case .statusBar:
             frame = CGRect(x: 0, y: -statusBarHeight, width: screenWidth, height: statusBarHeight)
         case .navigationBar:
-            frame = CGRect(x: 0, y: navigationBarHeight - statusBarHeight, width: screenWidth, height: statusBarHeight)
+            frame = CGRect(x: 0, y: navigationBarHeight, width: screenWidth, height: statusBarHeight)
         }
         return frame
     }
@@ -109,7 +105,7 @@ extension BPStatusBarAlert {
             case .statusBar:
                 self.frame.origin.y = 0
             case .navigationBar:
-                self.frame.origin.y = self.navigationBarHeight
+                self.frame.origin.y = self.navigationBarHeight + self.statusBarHeight
             }
             self.layoutIfNeeded()
         }) { _ in
@@ -123,7 +119,7 @@ extension BPStatusBarAlert {
             case .statusBar:
                 self.frame.origin.y = -self.statusBarHeight
             case .navigationBar:
-                self.frame.origin.y = self.navigationBarHeight - self.statusBarHeight
+                self.frame.origin.y = self.navigationBarHeight
             }
             self.layoutIfNeeded()
         }) { _ in
