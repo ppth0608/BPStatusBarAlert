@@ -147,8 +147,8 @@ extension BPStatusBarAlert {
             return
         }
         
-        containerWindow?.rootViewController?.view.addSubview(self)
-        containerWindow?.isHidden = false
+        window.rootViewController?.view.addSubview(self)
+        window.isHidden = false
     }
     
     fileprivate func decorateAttribute(message: String, messageColor: UIColor, bgColor: UIColor) {
