@@ -15,30 +15,35 @@ public enum AlertPosition {
 
 public class BPStatusBarAlert: UIButton {
     
-    public static let shared = BPStatusBarAlert()
-    
     typealias Position = AlertPosition
     
-    var containerWindow: UIWindow?
+    public static let shared = BPStatusBarAlert()
     
-    var duration = 0.3
-    var delay = 2.0
-    var position: Position
-    var isShowing: Bool = false
+    fileprivate var containerWindow: UIWindow?
     
-    var messageLable: UILabel = UILabel()
-    var messageColor: UIColor = UIColor.white
+    fileprivate var duration = 0.3
+    fileprivate var delay = 2.0
+    fileprivate var isShowing: Bool = false
+    fileprivate var position: Position = .statusBar {
+        didSet {
+            if position != oldValue {
+                frame = frame(position: position)
+            }
+        }
+    }
+    
+    fileprivate var messageLable: UILabel = UILabel()
+    fileprivate var messageColor: UIColor = UIColor.white
     
     fileprivate let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
     fileprivate let navigationBarHeight: CGFloat = 44.0
     fileprivate let screenWidth = UIScreen.main.bounds.width
     fileprivate let screenHeight = UIScreen.main.bounds.height
     
-    
-    public init(position: AlertPosition = .statusBar) {
-        self.position = position
+    public init() {
         super.init(frame: CGRect.zero)
-        setupDefault()
+        setupViewFrame(position: self.position)
+        setupMessageLabel()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -59,14 +64,9 @@ extension BPStatusBarAlert {
         return frame
     }
     
-    fileprivate func setupDefault() {
-        setupView()
-        setupMessageLabel()
-    }
-    
-    fileprivate func setupView() {
+    fileprivate func setupViewFrame(position: Position) {
+        self.position = position
         frame = frame(position: position)
-        backgroundColor = UIColor.red
     }
     
     fileprivate func setupMessageLabel() {
@@ -82,7 +82,11 @@ extension BPStatusBarAlert {
 
 extension BPStatusBarAlert {
     
-    public func show(message: String, messageColor: UIColor = UIColor.white, bgColor: UIColor = UIColor.bgColor) {
+    public func show(position: AlertPosition = .statusBar,
+                     message: String,
+                     messageColor: UIColor = UIColor.white,
+                     bgColor: UIColor = UIColor.bgColor) {
+        self.position = position
         decorateAttribute(message: message, messageColor: messageColor, bgColor: bgColor)
         createContainerWindow()
         addAlertViewInContainerWindow()
