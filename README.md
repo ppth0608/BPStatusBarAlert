@@ -52,10 +52,9 @@ BPStatusBarAlert.shared.show(message: "Complete sharing this article!", messageC
 ```
 
 ## TODO
-- [ ] Below NavigationBar Alert
+- [ ] Change window level on NavigationBar position
 - [ ] Support landscape Mode
 - [ ] Custom Show and Hide (like facebook)
-- [ ] Deal with Long text 
 
 ## Author
 
