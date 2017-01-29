@@ -6,6 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/BPStatusBarAlert.svg?style=flat)](http://cocoapods.org/pods/BPStatusBarAlert)
 
 `BPStatusBarAlert` is a library that allows you to easily make text-based alert that appear on the status bar.
+![](https://cloud.githubusercontent.com/assets/9531750/22404392/5f296692-e673-11e6-98f1-72cf33b9220e.gif)
 
 ## Requirements
  - Deployment Target - `iOS 8.3`
