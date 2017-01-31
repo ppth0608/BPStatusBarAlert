@@ -41,7 +41,10 @@ Now, you can uses `BPStatusBarAlert` classes using shared property
 
 Show function is composed below code
 ```Swift
-public func show(message: String, messageColor: UIColor = UIColor.white, bgColor: UIColor = UIColor.bgColor) {
+public func show(position: AlertPosition = .statusBar,
+                     message: String,
+                     messageColor: UIColor = UIColor.white,
+                     bgColor: UIColor = UIColor.bgColor) {
     ...
 }
 ```
