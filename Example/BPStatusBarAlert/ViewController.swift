@@ -22,7 +22,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonTapped(_ sender: Any) {
-        BPStatusBarAlert.shared.show(message: "Complete sharing this article!")
+//        BPStatusBarAlert.shared.show(position: .statusBar, message: "Complete sharing this article!")
+        BPStatusBarAlert.shared.show(position: .navigationBar, message: "Complete sharing this article!")
     }
 }
 

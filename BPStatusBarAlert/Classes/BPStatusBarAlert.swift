@@ -88,8 +88,7 @@ extension BPStatusBarAlert {
                      bgColor: UIColor = UIColor.bgColor) {
         self.position = position
         decorateAttribute(message: message, messageColor: messageColor, bgColor: bgColor)
-        createContainerWindow()
-        addAlertViewInContainerWindow()
+        adjustViewHierarchy(position: position)
         
         startAnimation {
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay) {
@@ -135,24 +134,34 @@ extension BPStatusBarAlert {
 
 extension BPStatusBarAlert {
     
-    fileprivate func createContainerWindow() {
+    fileprivate func adjustViewHierarchy(position: Position) {
+        switch position {
+        case .statusBar:
+            addAlertViewInContainerWindow()
+        case .navigationBar:
+            addAlertViewInCurrentWindow()
+        }
+    }
+    
+    fileprivate func addAlertViewInContainerWindow() {
         guard let keyWindow = UIApplication.shared.keyWindow else {
             return
         }
-        
         containerWindow = UIWindow(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: statusBarHeight))
         containerWindow?.backgroundColor = UIColor.clear
         containerWindow?.windowLevel = UIWindowLevelStatusBar
         containerWindow?.rootViewController = UIViewController()
+        containerWindow?.rootViewController?.view.addSubview(self)
+        containerWindow?.isHidden = false
     }
     
-    fileprivate func addAlertViewInContainerWindow() {
-        guard  let window = containerWindow else {
+    fileprivate func addAlertViewInCurrentWindow() {
+        guard let keyWindow = UIApplication.shared.keyWindow,
+              let rootViewController = keyWindow.rootViewController as? UINavigationController else {
             return
         }
-        
-        window.rootViewController?.view.addSubview(self)
-        window.isHidden = false
+        let navigationBar = rootViewController.navigationBar
+        rootViewController.view.insertSubview(self, belowSubview: navigationBar)
     }
     
     fileprivate func decorateAttribute(message: String, messageColor: UIColor, bgColor: UIColor) {

@@ -41,27 +41,10 @@
             </objects>
             <point key="canvasLocation" x="972" y="37.331334332833585"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="jEe-v6-FME">
-            <objects>
-                <viewController id="QGi-l9-Wwa" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Sa5-5g-7fo"/>
-                        <viewControllerLayoutGuide type="bottom" id="ToY-hJ-QSH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="k8I-uz-c0d">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="61N-is-H5x" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1776.8" y="36.431784107946029"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="PjM-d4-Ugz">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lrA-NM-xmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2sM-g2-0s4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HE5-76-QKX">
@@ -73,7 +56,6 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="glR-IB-R8Y"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lrA-NM-xmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="190" y="37"/>
         </scene>
