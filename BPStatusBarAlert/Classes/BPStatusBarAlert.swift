@@ -16,21 +16,15 @@ public enum AlertPosition {
 public class BPStatusBarAlert: UIButton {
     
     typealias Position = AlertPosition
-    
-    public static let shared = BPStatusBarAlert()
-    
+    typealias Completion = () -> Void
+        
     fileprivate var containerWindow: UIWindow?
     
-    fileprivate var duration = 0.3
-    fileprivate var delay = 2.0
+    fileprivate var duration: TimeInterval
+    fileprivate var delay: TimeInterval
     fileprivate var isShowing: Bool = false
-    fileprivate var position: Position = .statusBar {
-        didSet {
-            if position != oldValue {
-                frame = frame(position: position)
-            }
-        }
-    }
+    fileprivate var position: Position
+    fileprivate var completion: Completion?
     
     fileprivate var messageLable: UILabel = UILabel()
     fileprivate var messageColor: UIColor = UIColor.white
@@ -40,9 +34,15 @@ public class BPStatusBarAlert: UIButton {
     fileprivate let screenWidth = UIScreen.main.bounds.width
     fileprivate let screenHeight = UIScreen.main.bounds.height
     
-    public init() {
+    public init(duration: TimeInterval = 0.3, delay: TimeInterval = 2, position: AlertPosition = .statusBar) {
+        self.duration = duration
+        self.delay = delay
+        self.position = position
+        self.completion = nil
+        
         super.init(frame: CGRect.zero)
-        setupViewFrame(position: self.position)
+        
+        setupView(position: self.position)
         setupMessageLabel()
     }
     
@@ -51,6 +51,7 @@ public class BPStatusBarAlert: UIButton {
     }
 }
 
+// MARK: setup function
 extension BPStatusBarAlert {
     
     fileprivate func frame(position: Position) -> CGRect {
@@ -64,7 +65,8 @@ extension BPStatusBarAlert {
         return frame
     }
     
-    fileprivate func setupViewFrame(position: Position) {
+    fileprivate func setupView(position: Position) {
+        self.backgroundColor = UIColor.bgColor
         self.position = position
         frame = frame(position: position)
     }
@@ -76,18 +78,35 @@ extension BPStatusBarAlert {
         messageLable.numberOfLines = 0
         messageLable.font = UIFont.systemFont(ofSize: 13)
         messageLable.backgroundColor = UIColor.clear
+        messageLable.text = ""
         addSubview(messageLable)
     }
 }
 
+// MARK: chaning function and show / hide functions
 extension BPStatusBarAlert {
     
-    public func show(position: AlertPosition = .statusBar,
-                     message: String,
-                     messageColor: UIColor = UIColor.white,
-                     bgColor: UIColor = UIColor.bgColor) {
-        self.position = position
-        decorateAttribute(message: message, messageColor: messageColor, bgColor: bgColor)
+    public func message(message: String) -> Self {
+        self.messageLable.text = message
+        return self
+    }
+    
+    public func messageColor(color: UIColor) -> Self {
+        self.messageLable.textColor = color
+        return self
+    }
+    
+    public func bgColor(color: UIColor) -> Self {
+        self.backgroundColor = color
+        return self
+    }
+    
+    public func completion(_ completion: @escaping () -> Void) -> Self {
+        self.completion = completion
+        return self
+    }
+    
+    public func show() {
         adjustViewHierarchy(position: position)
         
         startAnimation {
@@ -96,6 +115,10 @@ extension BPStatusBarAlert {
             }
         }
     }
+}
+
+// MARK: animation functions
+extension BPStatusBarAlert {
     
     fileprivate func startAnimation(completion: @escaping () -> Void) {
         guard !isShowing else {
@@ -128,10 +151,12 @@ extension BPStatusBarAlert {
         }) { _ in
             self.isShowing = false
             self.containerWindow?.isHidden = true
+            self.completion?()
         }
     }
 }
 
+// MARK: manage window hierarchy functions
 extension BPStatusBarAlert {
     
     fileprivate func adjustViewHierarchy(position: Position) {
@@ -163,14 +188,9 @@ extension BPStatusBarAlert {
         let navigationBar = rootViewController.navigationBar
         rootViewController.view.insertSubview(self, belowSubview: navigationBar)
     }
-    
-    fileprivate func decorateAttribute(message: String, messageColor: UIColor, bgColor: UIColor) {
-        messageLable.text = message
-        messageLable.textColor = messageColor
-        backgroundColor = bgColor
-    }
 }
 
+// MARK: Extensions
 fileprivate extension UIColor {
     
     static var bgColor: UIColor {
