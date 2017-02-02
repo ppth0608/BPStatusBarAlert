@@ -1,13 +1,17 @@
 # BPStatusBarAlert
 
-[![CI Status](http://img.shields.io/travis/taehyun.park/BPStatusBarAlert.svg?style=flat)](https://travis-ci.org/taehyun.park/BPStatusBarAlert)
 [![Version](https://img.shields.io/cocoapods/v/BPStatusBarAlert.svg?style=flat)](http://cocoapods.org/pods/BPStatusBarAlert)
 [![License](https://img.shields.io/cocoapods/l/BPStatusBarAlert.svg?style=flat)](http://cocoapods.org/pods/BPStatusBarAlert)
 [![Platform](https://img.shields.io/cocoapods/p/BPStatusBarAlert.svg?style=flat)](http://cocoapods.org/pods/BPStatusBarAlert)
 
-`BPStatusBarAlert` is a library that allows you to easily make text-based alert that appear on the status bar. </br>
+`BPStatusBarAlert` is a library that allows you to easily make text-based alert that appear on the status bar and below navigation bar. </br>
 
-![](https://cloud.githubusercontent.com/assets/9531750/22404392/5f296692-e673-11e6-98f1-72cf33b9220e.gif)
+## Demo
+### StatusBar Position
+<img src="https://cloud.githubusercontent.com/assets/9531750/22561102/400b9132-e9ba-11e6-8c25-8122fd108df5.gif" width="320" height="590" />
+
+### NavigationBar Position
+<img src="https://cloud.githubusercontent.com/assets/9531750/22561105/4238acce-e9ba-11e6-8cc3-6dc9fd597a78.gif" width="320" height="590" />
 
 ## Requirements
  - Deployment Target - `iOS 8.3`
@@ -32,26 +36,43 @@ First, you need the following import BPStatusBarAlert
 import BPStatusBarAlert
 ```
 
-Now, you can uses `BPStatusBarAlert` classes using shared property
+Now, you can uses `BPStatusBarAlert` simply like this
 ```Swift
 @IBAction func buttonTapped(_ sender: Any) {
-    BPStatusBarAlert.shared.show(message: "Complete sharing this article!")
+    BPStatusBarAlert()
+        .message(message: "Complete Sharing This Contents")
+        .show()
 }
 ```
 
-Show function is composed below code
-```Swift
-public func show(position: AlertPosition = .statusBar,
-                     message: String,
-                     messageColor: UIColor = UIColor.white,
-                     bgColor: UIColor = UIColor.bgColor) {
-    ...
-}
-```
+Initialize `BPStatusBarAlert` with no parameters, it will set up default value for property
+Default setting
+ - Animation Duration : 0.3
+ - Animation Delay : 2.0
+ - Postion : .statusBar
+ - Background Color : UIColor(red: 77/255, green: 188/255, blue: 201/255, alpha: 1)
+ - Message Text : ""
+ - Message Text Color : UIColor.white
+ - Completion : nil
+ 
+So, If you want customize property, just **call init method with parameters and chaning function**
 
-So, if you want set up Message text, Message Color, Background Color, you call `show` function with arguments
+1. init (customize Duration, Delay and Postion)
+`BPStatusBarAlert` class init method is composed below code
 ```Swift
-BPStatusBarAlert.shared.show(message: "Complete sharing this article!", messageColor: UIColor.red, bgColor: UIColor.blue)
+public init(duration: TimeInterval = 0.3, delay: TimeInterval = 2, position: AlertPosition = .statusBar)
+```
+So, if you change time interval in animations and position of `BPStatusBarAlert`, using defaults paramaters
+
+2. chaning function (customize Background Color, Message Text, Message Text Color, Completion)
+
+```Swift
+BPStatusBarAlert(duration: 0.3, delay: 2, position: .statusBar)    // customize duration, delay and position
+    .message(message: "Complete Sharing This Contents")            // customize message
+    .messageColor(color: UIColor.white)                            // customize message color
+    .bgColor(color: UIColor.blue)                                  // customize view's background color
+    .completion { print("completion closure will called") }        // customize completion(Did hide alert view)
+    .show()                                                        // Animation start
 ```
 
 ## TODO
@@ -62,6 +83,11 @@ BPStatusBarAlert.shared.show(message: "Complete sharing this article!", messageC
 ## Author
 
 Ben.Park, ppth0608@naver.com
+
+## Contribute
+
+always welcome :)
+Only pull request.
 
 ## License
 
