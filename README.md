@@ -31,7 +31,7 @@ pod "BPStatusBarAlert"
 Copy the folder `BPStatusBarAlert` to your project
 
 ## Usage
-First, you need the following import BPStatusBarAlert
+First, you need the following import `BPStatusBarAlert`
 ```Swift
 import BPStatusBarAlert
 ```
@@ -57,14 +57,14 @@ Default setting
  
 So, If you want customize property, just **call init method with parameters and chaning function**
 
-1. init (customize Duration, Delay and Postion)
+ - init (customize Duration, Delay and Postion)
 `BPStatusBarAlert` class init method is composed below code
 ```Swift
 public init(duration: TimeInterval = 0.3, delay: TimeInterval = 2, position: AlertPosition = .statusBar)
 ```
 So, if you change time interval in animations and position of `BPStatusBarAlert`, using defaults paramaters
 
-2. chaning function (customize Background Color, Message Text, Message Text Color, Completion)
+ - chaning function (customize Background Color, Message Text, Message Text Color, Completion)
 
 ```Swift
 BPStatusBarAlert(duration: 0.3, delay: 2, position: .statusBar)    // customize duration, delay and position
