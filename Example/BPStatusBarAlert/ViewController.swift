@@ -24,8 +24,8 @@ class ViewController: UIViewController {
     @IBAction func buttonTapped(_ sender: Any) {
         BPStatusBarAlert(duration: 0.3, delay: 2, position: .statusBar)
             .message(message: "Complete Sharing This Contents")
-            .messageColor(color: UIColor.white)
-            .bgColor(color: UIColor.blue)
+            .messageColor(color: .white)
+            .bgColor(color: .blue)
             .completion { print("completion closure will called") }
             .show()
     }
