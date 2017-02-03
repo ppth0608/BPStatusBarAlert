@@ -52,7 +52,7 @@ Default setting
  - Postion : .statusBar
  - Background Color : UIColor(red: 77/255, green: 188/255, blue: 201/255, alpha: 1)
  - Message Text : ""
- - Message Text Color : UIColor.white
+ - Message Text Color : .white
  - Completion : nil
  
 So, If you want customize property, just **call init method with parameters and chaning function**
@@ -67,12 +67,12 @@ So, if you change time interval in animations and position of `BPStatusBarAlert`
  - chaning function (customize Background Color, Message Text, Message Text Color, Completion)
 
 ```Swift
-BPStatusBarAlert(duration: 0.3, delay: 2, position: .statusBar)    // customize duration, delay and position
-    .message(message: "Complete Sharing This Contents")            // customize message
-    .messageColor(color: UIColor.white)                            // customize message color
-    .bgColor(color: UIColor.blue)                                  // customize view's background color
-    .completion { print("completion closure will called") }        // customize completion(Did hide alert view)
-    .show()                                                        // Animation start
+BPStatusBarAlert(duration: 0.3, delay: 2, position: .statusBar) // customize duration, delay and position
+    .message(message: "Complete Sharing This Contents")         // customize message
+    .messageColor(color: .white)                                // customize message color
+    .bgColor(color: .blue)                                      // customize view's background color
+    .completion { print("completion closure will called") }     // customize completion(Did hide alert view)
+    .show()                                                     // Animation start
 ```
 
 ## TODO
