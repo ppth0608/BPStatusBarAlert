@@ -79,6 +79,7 @@ BPStatusBarAlert(duration: 0.3, delay: 2, position: .statusBar) // customize dur
 - [x] Change window level on NavigationBar position
 - [ ] Support landscape Mode
 - [ ] Custom Show and Hide (like facebook)
+- [ ] Support Custom Navigation Bar
 
 ## Author
 
