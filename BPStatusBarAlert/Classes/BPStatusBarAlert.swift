@@ -13,7 +13,7 @@ public enum AlertPosition {
     case navigationBar
 }
 
-public class BPStatusBarAlert: UIButton {
+public class BPStatusBarAlert: UIView {
     
     typealias Position = AlertPosition
     typealias Completion = () -> Void
