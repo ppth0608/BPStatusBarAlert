@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+
 import UIKit
 
 public enum AlertPosition {
@@ -21,7 +21,14 @@ public class BPStatusBarAlert: UIView {
         
     fileprivate var containerWindow: UIWindow?
     
-    fileprivate var deviceStatusBarHeight:CGFloat!
+    fileprivate var deviceStatusBarHeight:CGFloat {
+        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436 {
+            return 15
+        }
+        else {
+            return 0
+        }
+    }
     fileprivate var duration: TimeInterval
     fileprivate var delay: TimeInterval
     fileprivate var isShowing: Bool = false
@@ -31,25 +38,14 @@ public class BPStatusBarAlert: UIView {
     fileprivate var messageLable: UILabel = UILabel()
     fileprivate var messageColor: UIColor = UIColor.white
     
-    fileprivate var statusBarHeight:CGFloat!
+    fileprivate var statusBarHeight:CGFloat {
+        return UIApplication.shared.statusBarFrame.size.height + deviceStatusBarHeight
+    }
     fileprivate let navigationBarHeight: CGFloat = 44.0
     fileprivate let screenWidth = UIScreen.main.bounds.width
     fileprivate let screenHeight = UIScreen.main.bounds.height
     
     public init(duration: TimeInterval = 0.3, delay: TimeInterval = 2, position: AlertPosition = .statusBar) {
-        
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 2436:
-                deviceStatusBarHeight = 15
-            default:
-                deviceStatusBarHeight = 0
-            }
-        }
-        
-        //deviceStatusBarHeight = 20
-        
-        statusBarHeight = UIApplication.shared.statusBarFrame.size.height + deviceStatusBarHeight
         
         self.duration = duration
         self.delay = delay
@@ -57,7 +53,7 @@ public class BPStatusBarAlert: UIView {
         self.completion = nil
         
         super.init(frame: CGRect.zero)
-        
+                
         setupView(position: self.position)
         setupMessageLabel()
     }
