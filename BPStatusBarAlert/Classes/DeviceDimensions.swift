@@ -7,10 +7,10 @@
 
 import UIKit
 
-public class DeviceDimensions {
+public struct DeviceDimensions {
     
-    fileprivate var iPhoneXDeviceHeight:CGFloat = 2436
-    fileprivate var paddingHeight:CGFloat = 15
+    fileprivate let iPhoneXDeviceHeight:CGFloat = 2436
+    fileprivate let paddingHeight:CGFloat = 15
     
     fileprivate var device:UIDevice {
         return UIDevice.current
@@ -19,11 +19,9 @@ public class DeviceDimensions {
         return UIScreen.main
     }
     
-    var statusBarHeight:CGFloat {
-        get {
-            let hasNotch = self.device.userInterfaceIdiom == .phone && self.screen.nativeBounds.height == self.iPhoneXDeviceHeight
-            return hasNotch ? self.paddingHeight : 0
-        }
+    var statusBarHeight: CGFloat {
+        let  hasNotch = device.userInterfaceIdiom == .phone && screen.nativeBounds.height == iPhoneXDeviceHeight
+        return hasNotch ? paddingHeight : 0
     }
     
 }
