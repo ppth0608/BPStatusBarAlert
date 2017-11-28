@@ -22,12 +22,9 @@ public class BPStatusBarAlert: UIView {
     fileprivate var containerWindow: UIWindow?
     
     fileprivate var deviceStatusBarHeight:CGFloat {
-        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436 {
-            return 15
-        }
-        else {
-            return 0
-        }
+        
+        let deviceDimensions = DeviceDimensions()
+        return deviceDimensions.statusBarHeight
     }
     fileprivate var duration: TimeInterval
     fileprivate var delay: TimeInterval
