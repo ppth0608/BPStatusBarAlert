@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct DeviceDimensions {
+internal struct DeviceDimensions {
     
     fileprivate let iPhoneXDeviceHeight:CGFloat = 2436
     fileprivate let paddingHeight:CGFloat = 15
