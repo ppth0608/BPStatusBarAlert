@@ -6,7 +6,8 @@
 //
 //
 
-import Foundation
+
+import UIKit
 
 public enum AlertPosition {
     case statusBar
@@ -20,6 +21,11 @@ public class BPStatusBarAlert: UIView {
         
     fileprivate var containerWindow: UIWindow?
     
+    fileprivate var deviceStatusBarHeight:CGFloat {
+        
+        let deviceDimensions = DeviceDimensions()
+        return deviceDimensions.statusBarHeight
+    }
     fileprivate var duration: TimeInterval
     fileprivate var delay: TimeInterval
     fileprivate var isShowing: Bool = false
@@ -29,19 +35,22 @@ public class BPStatusBarAlert: UIView {
     fileprivate var messageLable: UILabel = UILabel()
     fileprivate var messageColor: UIColor = UIColor.white
     
-    fileprivate let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+    fileprivate var statusBarHeight:CGFloat {
+        return UIApplication.shared.statusBarFrame.size.height + deviceStatusBarHeight
+    }
     fileprivate let navigationBarHeight: CGFloat = 44.0
     fileprivate let screenWidth = UIScreen.main.bounds.width
     fileprivate let screenHeight = UIScreen.main.bounds.height
     
     public init(duration: TimeInterval = 0.3, delay: TimeInterval = 2, position: AlertPosition = .statusBar) {
+        
         self.duration = duration
         self.delay = delay
         self.position = position
         self.completion = nil
         
         super.init(frame: CGRect.zero)
-        
+                
         setupView(position: self.position)
         setupMessageLabel()
     }
@@ -72,7 +81,7 @@ extension BPStatusBarAlert {
     }
     
     fileprivate func setupMessageLabel() {
-        messageLable.frame = CGRect(x: 10, y: 0, width: frame.size.width - 10, height: statusBarHeight)
+        messageLable.frame = CGRect(x: 10, y: deviceStatusBarHeight, width: frame.size.width - 10, height: statusBarHeight)
         messageLable.textColor = messageColor
         messageLable.textAlignment = .center
         messageLable.numberOfLines = 0
