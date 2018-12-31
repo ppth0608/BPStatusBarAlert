@@ -183,7 +183,7 @@ extension BPStatusBarAlert {
         }
         containerWindow = UIWindow(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: statusBarHeight))
         containerWindow?.backgroundColor = UIColor.clear
-        containerWindow?.windowLevel = UIWindowLevelStatusBar
+        containerWindow?.windowLevel = UIWindow.Level.statusBar
         containerWindow?.rootViewController = UIViewController()
         containerWindow?.rootViewController?.view.addSubview(self)
         containerWindow?.isHidden = false
