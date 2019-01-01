@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BPStatusBarAlert'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'Very simple library that allows you to easily make StatusBar frame Alert(Notification)'
   s.description      = 'Very simple library that allows you to easily make StatusBar frame Alert(Notification) Make Fun!'
   s.homepage         = 'https://github.com/ppth0608/BPStatusBarAlert'
