@@ -18,11 +18,10 @@ public class BPStatusBarAlert: UIView {
     
     typealias Position = AlertPosition
     typealias Completion = () -> Void
-        
+    
     fileprivate var containerWindow: UIWindow?
     
     fileprivate var deviceStatusBarHeight:CGFloat {
-        
         let deviceDimensions = DeviceDimensions()
         return deviceDimensions.statusBarHeight
     }
@@ -32,11 +31,11 @@ public class BPStatusBarAlert: UIView {
     fileprivate var position: Position
     fileprivate var completion: Completion?
     
-    fileprivate var messageLable: UILabel = UILabel()
+    fileprivate var messageLabel: UILabel = UILabel()
     fileprivate var messageColor: UIColor = UIColor.white
     
     fileprivate var statusBarHeight:CGFloat {
-        return UIApplication.shared.statusBarFrame.size.height + deviceStatusBarHeight
+        return UIApplication.shared.statusBarFrame.size.height
     }
     fileprivate let navigationBarHeight: CGFloat = 44.0
     fileprivate let screenWidth = UIScreen.main.bounds.width
@@ -50,7 +49,7 @@ public class BPStatusBarAlert: UIView {
         self.completion = nil
         
         super.init(frame: CGRect.zero)
-                
+        
         setupView(position: self.position)
         setupMessageLabel()
     }
@@ -81,14 +80,15 @@ extension BPStatusBarAlert {
     }
     
     fileprivate func setupMessageLabel() {
-        messageLable.frame = CGRect(x: 10, y: deviceStatusBarHeight, width: frame.size.width - 10, height: statusBarHeight)
-        messageLable.textColor = messageColor
-        messageLable.textAlignment = .center
-        messageLable.numberOfLines = 0
-        messageLable.font = UIFont.systemFont(ofSize: 13)
-        messageLable.backgroundColor = UIColor.clear
-        messageLable.text = ""
-        addSubview(messageLable)
+        
+        messageLabel.frame = CGRect(x: 10, y: statusBarHeight - deviceStatusBarHeight, width: frame.size.width - 10, height: deviceStatusBarHeight)
+        messageLabel.textColor = messageColor
+        messageLabel.textAlignment = .center
+        messageLabel.numberOfLines = 0
+        messageLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        messageLabel.backgroundColor = UIColor.clear
+        messageLabel.text = ""
+        addSubview(messageLabel)
     }
 }
 
@@ -96,12 +96,12 @@ extension BPStatusBarAlert {
 extension BPStatusBarAlert {
     
     public func message(message: String) -> Self {
-        self.messageLable.text = message
+        self.messageLabel.text = message
         return self
     }
     
     public func messageColor(color: UIColor) -> Self {
-        self.messageLable.textColor = color
+        self.messageLabel.textColor = color
         return self
     }
     
@@ -183,7 +183,7 @@ extension BPStatusBarAlert {
         }
         containerWindow = UIWindow(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: statusBarHeight))
         containerWindow?.backgroundColor = UIColor.clear
-        containerWindow?.windowLevel = UIWindow.Level.statusBar
+        containerWindow?.windowLevel = UIWindow.Level.statusBar + 1
         containerWindow?.rootViewController = UIViewController()
         containerWindow?.rootViewController?.view.addSubview(self)
         containerWindow?.isHidden = false
@@ -191,11 +191,11 @@ extension BPStatusBarAlert {
     
     fileprivate func addAlertViewInCurrentWindow() {
         guard let keyWindow = UIApplication.shared.keyWindow,
-              let rootViewController = keyWindow.rootViewController as? UINavigationController else {
-            return
+            let rootViewController = keyWindow.rootViewController as? UINavigationController else {
+                return
         }
         let navigationBar = rootViewController.navigationBar
-        rootViewController.view.insertSubview(self, belowSubview: navigationBar)
+        rootViewController.view.insertSubview(self, aboveSubview: navigationBar)
     }
 }
 
