@@ -81,6 +81,8 @@ extension BPStatusBarAlert {
     
     fileprivate func setupMessageLabel() {
         
+        //        messageLabel.frame = CGRect(x: 10, y: deviceStatusBarHeight, width: frame.size.width - 10, height: statusBarHeight)
+        
         messageLabel.frame = CGRect(x: 10, y: statusBarHeight - deviceStatusBarHeight, width: frame.size.width - 10, height: deviceStatusBarHeight)
         messageLabel.textColor = messageColor
         messageLabel.textAlignment = .center
@@ -183,19 +185,27 @@ extension BPStatusBarAlert {
         }
         containerWindow = UIWindow(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: statusBarHeight))
         containerWindow?.backgroundColor = UIColor.clear
-        containerWindow?.windowLevel = UIWindow.Level.statusBar + 1
+        containerWindow?.windowLevel = UIWindow.Level.statusBar
         containerWindow?.rootViewController = UIViewController()
         containerWindow?.rootViewController?.view.addSubview(self)
         containerWindow?.isHidden = false
     }
     
     fileprivate func addAlertViewInCurrentWindow() {
-        guard let keyWindow = UIApplication.shared.keyWindow,
-            let rootViewController = keyWindow.rootViewController as? UINavigationController else {
-                return
+        guard let keyWindow = UIApplication.shared.keyWindow else {
+            return
         }
-        let navigationBar = rootViewController.navigationBar
-        rootViewController.view.insertSubview(self, aboveSubview: navigationBar)
+        
+        if let rootViewController = keyWindow.rootViewController as? UINavigationController
+        {
+            let navigationBar = rootViewController.navigationBar
+            rootViewController.view.insertSubview(self, belowSubview: navigationBar)
+        }
+        else if let rootTabController = keyWindow.rootViewController as? UITabBarController, let rootViewController = rootTabController.selectedViewController as? UINavigationController
+        {
+            let navigationBar = rootViewController.navigationBar
+            rootViewController.view.insertSubview(self, belowSubview: navigationBar)
+        }
     }
 }
 
